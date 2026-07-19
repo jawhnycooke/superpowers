@@ -1,5 +1,8 @@
 # Superpowers
 
+> **Fork notice:** This is [jawhnycooke](https://github.com/jawhnycooke)'s fork of [obra/superpowers](https://github.com/obra/superpowers). It adds dynamic-workflow orchestration: a new `orchestrating-workflows` skill (inline subagents vs. scripted workflows), worktree-isolation and structured-output guidance in `dispatching-parallel-agents`, and an automated skill pressure-testing workflow in `writing-skills`. Fork-specific changes are not intended for upstream PRs.
+
+
 Superpowers is a complete software development methodology for your coding agents, built on top of a set of composable skills and some initial instructions that make sure your agent uses them.
 
 

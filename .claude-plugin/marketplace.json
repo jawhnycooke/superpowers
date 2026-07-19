@@ -1,15 +1,15 @@
 {
-  "name": "superpowers-dev",
-  "description": "Development marketplace for Superpowers core skills library",
+  "name": "superpowers-jc",
+  "description": "Jawhny Cooke's fork of the Superpowers core skills library, with dynamic-workflow orchestration customizations",
   "owner": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "Jawhny Cooke",
+    "email": "jxcooke+claude@gmail.com"
   },
   "plugins": [
     {
       "name": "superpowers",
       "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
-      "version": "6.1.1",
+      "version": "6.1.2",
       "source": "./",
       "author": {
         "name": "Jesse Vincent",
