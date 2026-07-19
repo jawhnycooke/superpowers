@@ -47,6 +47,7 @@ Skip any step = lying, not verifying
 | Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
 | Regression test works | Red-green cycle verified | Test passes once |
 | Agent completed | VCS diff shows changes | Agent reports "success" |
+| Workflow/batch run done | VCS diff + per-agent journal inspected | Script return value, all-green statuses |
 | Requirements met | Line-by-line checklist | Tests passing |
 
 ## Red Flags - STOP
@@ -104,6 +105,14 @@ Skip any step = lying, not verifying
 ✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
 ❌ Trust agent report
 ```
+
+**Workflow/orchestrated runs:**
+```
+✅ Run completes → inspect VCS diff and per-agent journal → verify → report actual state
+❌ Trust the run's return value ("23/23 workers report success")
+```
+A structured all-green result in a schema you designed is still an agent
+report. The schema validates the shape, not the truth.
 
 ## Why This Matters
 

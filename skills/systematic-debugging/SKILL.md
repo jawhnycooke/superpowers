@@ -167,6 +167,16 @@ You MUST complete each phase before proceeding to the next.
    - Ask for help
    - Research more
 
+**Competing hypotheses? Parallelize the investigation, never the fix.**
+When 2-3 plausible root causes survive Phases 1-2 and each needs real
+investigation (instrumenting different layers, reading different
+subsystems), dispatch one investigator subagent per hypothesis — each tries
+to prove AND refute its assigned hypothesis and returns evidence, not
+patches. Evidence gathering parallelizes cleanly; fixing does not. The fix
+that follows is still ONE minimal change based on the winning evidence —
+one fix per hypothesis is shotgun debugging with extra steps. See
+superpowers:dispatching-parallel-agents for dispatch discipline.
+
 ### Phase 4: Implementation
 
 **Fix the root cause, not the symptom:**
