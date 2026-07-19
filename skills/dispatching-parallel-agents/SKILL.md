@@ -42,7 +42,9 @@ digraph when_to_use {
 **Don't use when:**
 - Failures are related (fix one might fix others)
 - Need to understand full system state
-- Agents would interfere with each other
+- Agents would interfere with each other (unless isolated — see worktree note below)
+
+**Escalate to a workflow:** 5+ similar items, staged fan-out (find → verify → synthesize), or unknown scope (keep going until nothing new). Hand-dispatching at that scale is a workflow written in willpower. **REQUIRED SUB-SKILL:** Use superpowers:orchestrating-workflows to decide and script it.
 
 ## The Pattern
 
@@ -62,6 +64,8 @@ Each agent gets:
 - **Clear goal:** Make these tests pass
 - **Constraints:** Don't change other code
 - **Expected output:** Summary of what you found and fixed
+
+If your harness supports structured output for subagents (a result schema on dispatch), request a structured result — e.g. `{root_cause, files_changed, summary}` — instead of free prose. Validated fields beat parsing paragraphs when you integrate results.
 
 ### 3. Dispatch in Parallel
 
@@ -132,6 +136,8 @@ Return: Summary of what you found and what you fixed.
 **Need full context:** Understanding requires seeing entire system
 **Exploratory debugging:** You don't know what's broken yet
 **Shared state:** Agents would interfere (editing same files, using same resources)
+
+**Worktree isolation lifts the shared-file constraint:** if your harness can run each agent in its own git worktree (e.g. `isolation: "worktree"` on dispatch in Claude Code), agents editing overlapping files stop being a blocker — each works an isolated copy and you integrate afterward. Genuinely shared *runtime* state (same database, same port) still means sequential.
 
 ## Real Example from Session
 

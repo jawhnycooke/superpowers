@@ -456,6 +456,21 @@ Different skill types need different test approaches:
 
 **All of these mean: Test before deploying. No exceptions.**
 
+## Automated Pressure Testing (Workflow)
+
+If your harness has a dynamic workflow tool (Claude Code: the Workflow tool), the RED/GREEN comparison runs as a script instead of hand-dispatched subagents — `pressure-test-workflow.js` in this directory:
+
+```
+Workflow({ scriptPath: "<this-skill-dir>/pressure-test-workflow.js",
+           args: { skillPath: "/abs/path/to/SKILL.md", scenarioCount: 4, runsPerArm: 2 } })
+```
+
+It generates pressure scenarios from the skill's rules, runs each scenario in two arms (baseline WITHOUT the skill, then WITH the skill's content injected), and a judge per scenario returns verdicts with rationalizations quoted verbatim — ready for the skill's rationalization table.
+
+**Reading verdicts:** `SKILL_LEAKS` → close the quoted loopholes (REFACTOR is still your judgment). `NO_BASELINE_FAILURE` → the scenario is too weak, not proof the skill works; regenerate with more pressure.
+
+**Caveat:** the baseline arm is only honest if the skill under test isn't already installed and auto-triggering in your harness — test edited copies before deploying them, which is the point.
+
 ## Match the Form to the Failure
 
 Before writing guidance, classify the baseline failure. The form that bulletproofs one failure type measurably backfires on another.

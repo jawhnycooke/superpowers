@@ -29,6 +29,7 @@ When multiple skills apply, process skills come first — they set the approach,
 
 - "Let's build X" → superpowers:brainstorming first, then implementation skills.
 - "Fix this bug" → superpowers:systematic-debugging first, then domain skills.
+- "Audit/migrate/review many X" → superpowers:orchestrating-workflows first, to pick inline dispatch vs. a scripted workflow.
 
 ## Red Flags
 
