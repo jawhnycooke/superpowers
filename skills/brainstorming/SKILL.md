@@ -70,11 +70,13 @@ digraph brainstorming {
 - For appropriately-scoped projects, ask questions one at a time to refine the idea
 - Prefer multiple choice questions when possible, but open-ended is fine too
 - Only one question per message - if a topic needs more exploration, break it into multiple questions
+- If your harness has a structured question tool (multiple-choice prompts with selectable options, e.g. AskUserQuestion in Claude Code), use it for multiple-choice questions — options with short descriptions beat prose A/B/C lists. Still one question per message.
 - Focus on understanding: purpose, constraints, success criteria
 
 **Exploring approaches:**
 
 - Propose 2-3 different approaches with trade-offs
+- When the design space is wide, generate the approaches via independent subagents (one per angle — e.g. simplest-possible, most-robust, best-UX) rather than self-diversifying: genuinely different perspectives beat one mind wearing three hats
 - Present options conversationally with your recommendation and reasoning
 - Lead with your recommended option and explain why
 

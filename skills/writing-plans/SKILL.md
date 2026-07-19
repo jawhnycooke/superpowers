@@ -86,6 +86,10 @@ include this section.]
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
 
+**Depends on:** [Task numbers whose Produces this task Consumes — or "none".
+Tasks with disjoint Files and no dependency chain between them are safe to
+execute in parallel or as a scripted workflow.]
+
 **Interfaces:**
 - Consumes: [what this task uses from earlier tasks — exact signatures]
 - Produces: [what later tasks rely on — exact function names, parameter
