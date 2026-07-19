@@ -82,6 +82,27 @@ digraph process {
 }
 ```
 
+## Workflow Execution Mode
+
+If your harness has a dynamic workflow tool (Claude Code: the Workflow tool)
+and the plan's briefs are complete — exact code in steps, ambiguities already
+resolved, implementer questions unlikely — you can compile this skill's
+per-task loop into a workflow script: implement → review package → task
+review → fix loop, with statuses returned as schema-validated objects. The
+review gates become control flow that cannot be skipped or rationalized away,
+intermediate reports stay out of your context, and a stopped run resumes with
+completed tasks cached.
+
+**The tradeoff:** workflows accept no mid-run human input. An implementer
+question becomes a NEEDS_CONTEXT/BLOCKED status that ends that task's chain;
+you answer it and resume. Plans with expected ambiguity, or where you want to
+adjudicate findings between tasks, stay inline with the process below.
+
+**REQUIRED SUB-SKILL:** Use superpowers:orchestrating-workflows to make the
+call and structure the script. The ledger discipline (Durable Progress below)
+still applies — the workflow's return value updates the ledger; it does not
+replace it.
+
 ## Pre-Flight Plan Review
 
 Before dispatching Task 1, scan the plan once for conflicts:
@@ -131,7 +152,10 @@ that implementer. Single-file mechanical fixes also take the cheapest tier.
 
 ## Handling Implementer Status
 
-Implementer subagents report one of four statuses. Handle each appropriately:
+Implementer subagents report one of four statuses. Handle each appropriately.
+If your harness supports schema-validated subagent output, request the status
+report as structured output — `{status, commits, test_summary, concerns}` —
+so status handling is validated rather than parsed from prose.
 
 **DONE:** Generate the review package (`scripts/review-package BASE HEAD`, from this skill's directory — it prints the unique file path it wrote; BASE is the commit you recorded before dispatching the implementer — never `HEAD~1`, which silently drops all but the last commit of a multi-commit task), then dispatch the task reviewer with the printed path.
 
@@ -370,7 +394,11 @@ Done!
 - Start implementation on main/master branch without explicit user consent
 - Skip task review, or accept a report missing either verdict (spec compliance AND task quality are both required)
 - Proceed with unfixed issues
-- Dispatch multiple implementation subagents in parallel (conflicts)
+- Dispatch multiple implementation subagents in parallel in a shared
+  working tree (conflicts). Exception: tasks whose plans declare disjoint
+  **Files:** and no **Depends on:** chain may run in parallel when each
+  implementer gets an isolated worktree (e.g. `isolation: "worktree"`);
+  integrate and review sequentially afterward
 - Make a subagent read the whole plan file (hand it its task brief —
   `scripts/task-brief` — instead)
 - Skip scene-setting context (subagent needs to understand where task fits)

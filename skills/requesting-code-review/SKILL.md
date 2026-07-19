@@ -87,6 +87,27 @@ You: [Fix progress indicators]
 - Review before merge
 - Review when stuck
 
+## Adversarial Review at Scale
+
+A single reviewer you briefed has two failure modes on large or self-authored
+work: self-preferential bias (grading work from the same session gently) and
+plausible-but-wrong findings that survive because nobody challenged them.
+
+For the final whole-branch review, major features, or any review where you
+wrote the code being reviewed: if your harness has a dynamic workflow tool,
+fan the review out instead —
+
+1. **One reviewer per dimension** (correctness, security, test quality, spec
+   compliance), each briefed with only the diff and requirements
+2. **Independent skeptics per finding**, prompted to REFUTE it; findings a
+   majority refute are dropped
+3. **One synthesizer** ranks and deduplicates what survives
+
+Only refutation-surviving findings reach you. **REQUIRED SUB-SKILL:** Use
+superpowers:orchestrating-workflows to structure the script. The single
+subagent flow above remains right for per-task reviews — cheap, fast,
+sufficient for task-scoped gates.
+
 ## Red Flags
 
 **Never:**
