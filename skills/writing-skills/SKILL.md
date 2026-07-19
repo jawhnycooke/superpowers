@@ -467,7 +467,9 @@ Workflow({ scriptPath: "<this-skill-dir>/pressure-test-workflow.js",
 
 It generates pressure scenarios from the skill's rules, runs each scenario in two arms (baseline WITHOUT the skill, then WITH the skill's content injected), and a judge per scenario returns verdicts with rationalizations quoted verbatim — ready for the skill's rationalization table.
 
-**Reading verdicts:** `SKILL_LEAKS` → close the quoted loopholes (REFACTOR is still your judgment). `NO_BASELINE_FAILURE` → the scenario is too weak, not proof the skill works; regenerate with more pressure.
+**Reading verdicts:** `SKILL_LEAKS` → close the quoted loopholes (REFACTOR is still your judgment). `NO_BASELINE_FAILURE` → not proof the skill works — either the scenario is too weak (regenerate with more pressure) or the baseline model/harness already behaves compliantly (modern harnesses ship orchestration and verification guidance natively; a rule that duplicates it will never show RED — consider trimming the rule to reference content instead of adding enforcement).
+
+**Instrument limits:** scenarios are choose-an-option quizzes — a cheap screen, not an embodied task. Picking the compliant answer costs the agent nothing, so `SKILL_WORKS` is meaningful evidence while an all-compliant baseline is ambiguous. For high-stakes discipline skills, follow up with embodied tests (agent does real work under pressure) per `testing-skills-with-subagents.md`.
 
 **Caveat:** the baseline arm is only honest if the skill under test isn't already installed and auto-triggering in your harness — test edited copies before deploying them, which is the point.
 

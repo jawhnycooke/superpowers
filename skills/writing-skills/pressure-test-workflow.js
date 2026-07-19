@@ -10,12 +10,13 @@ export const meta = {
   ],
 }
 
-const skillPath = args?.skillPath
+const input = typeof args === 'string' ? JSON.parse(args) : args
+const skillPath = input?.skillPath
 if (!skillPath) {
   throw new Error('args.skillPath required, e.g. {"skillPath": "/abs/path/to/SKILL.md"}')
 }
-const scenarioCount = args?.scenarioCount ?? 4
-const runsPerArm = args?.runsPerArm ?? 2
+const scenarioCount = input?.scenarioCount ?? 4
+const runsPerArm = input?.runsPerArm ?? 2
 
 phase('Prepare')
 const prep = await agent(
